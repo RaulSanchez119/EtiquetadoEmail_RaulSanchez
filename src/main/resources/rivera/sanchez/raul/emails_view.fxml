@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="rivera.sanchez.raul.controllers.EmailController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #f4f4f4; -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+        <Label text="Etiquetado de Correos de Gmail"
+               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 10px;"/>
+
+        <TextField fx:id="emailField" promptText="correo@gmail.com" style="-fx-pref-width: 250px; -fx-font-size: 14px;"/>
+
+        <PasswordField fx:id="passwordField" promptText="contraseña" style="-fx-pref-width: 250px; -fx-font-size: 14px;"/>
+
+        <!-- Centrado del botón y el ProgressIndicator -->
+        <VBox alignment="CENTER" spacing="10.0">
+            <Button text="Mostrar Correos Etiquetados"
+                    onAction="#onMostrarCorreosEtiquetadosClick"
+                    style="-fx-background-color: #2196F3;
+                     -fx-text-fill: white;
+                     -fx-font-size: 16px;
+                     -fx-padding: 12px 24px;
+                     -fx-border-radius: 10px;
+                     -fx-background-radius: 10px;
+                     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);
+                     -fx-cursor: hand;"/>
+
+            <ProgressIndicator fx:id="progressIndicator" visible="false"
+                               style="-fx-progress-color: #2196F3;"/>
+        </VBox>
+    </VBox>
+
+    <Region style="-fx-pref-width: 20px;"/>
+
+    <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #f4f4f4; -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+        <Label text="Lista de Correos Etiquetados"
+               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 10px;"/>
+
+        <ListView fx:id="emailListView" prefHeight="200.0" prefWidth="400.0"
+                  onMouseClicked="#onEmailSelected"
+                  style="-fx-background-color: white;
+                     -fx-border-color: #ddd;
+                     -fx-border-width: 2px;
+                     -fx-border-radius: 10px;
+                     -fx-padding: 10px;"/>
+
+        <Label text="Contenido del Correo"
+               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 10px;"/>
+
+        <TextArea fx:id="textArea" editable="false" wrapText="true" prefWidth="400.0" prefHeight="200.0"
+                  style="-fx-background-color: white;
+                     -fx-border-color: #ddd;
+                     -fx-border-width: 2px;
+                     -fx-border-radius: 10px;
+                     -fx-padding: 10px;"/>
+    </VBox>
+</HBox>
