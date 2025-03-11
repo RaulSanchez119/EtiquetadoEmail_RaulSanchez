@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import rivera.sanchez.raul.models.Email;
 import rivera.sanchez.raul.services.EmailService;
-import rivera.sanchez.raul.services.AlertService;  // Importa la clase AlertService
+import rivera.sanchez.raul.services.AlertService;
 
 import java.util.List;
 
@@ -75,7 +75,7 @@ public class EmailController {
         String selectedEmail = emailListView.getSelectionModel().getSelectedItem();
 
         if (selectedEmail != null) {
-            String[] parts = selectedEmail.split(" - ");
+            String[] parts = selectedEmail.split(" | ");
             String subject = parts[0];
 
             String email = emailField.getText();
@@ -85,9 +85,14 @@ public class EmailController {
                 @Override
                 protected Email call() throws Exception {
                     List<Email> emails = emailService.obtenerCorreos(email, password, false);
+
                     for (Email mail : emails) {
-                        System.out.println("Comparando: " + mail.getAsunto() + " con " + subject);  // Debugging
-                        if (mail.getAsunto().equals(subject)) {
+                        System.out.println("Correo cargado: '" + mail.getAsunto() + "'");
+                    }
+
+                    for (Email mail : emails) {
+                        System.out.println("Comparando: '" + mail.getAsunto() + "' con '" + subject + "'");
+                        if (mail.getAsunto().trim().toLowerCase().contains(subject.trim().toLowerCase())) {
                             return mail;
                         }
                     }
@@ -98,7 +103,6 @@ public class EmailController {
             cargarContenidoTask.setOnSucceeded(event2 -> {
                 Email correo = cargarContenidoTask.getValue();
                 if (correo != null) {
-                    System.out.println("Correo encontrado: " + correo.getAsunto());  // Debugging
                     textArea.setText(correo.getMensaje());
                 } else {
                     AlertService.showAlert(Alert.AlertType.WARNING, "Correo no encontrado", "No se encontró el contenido del correo.");
@@ -112,4 +116,5 @@ public class EmailController {
             new Thread(cargarContenidoTask).start();
         }
     }
+
 }
